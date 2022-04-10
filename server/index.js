@@ -20,7 +20,7 @@ app.get("/api/compliment", (req, res) => {
   // choose random compliment
   let randomIndex = Math.floor(Math.random() * compliments.length);
   let randomCompliment = compliments[randomIndex];
-
+  console.log(randomCompliment);
   res.status(200).send(randomCompliment);
   
 });

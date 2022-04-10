@@ -8,7 +8,7 @@
     <button id="fortuneButton">get a fortune</button>
 
     <form>
-    
+      
       <input 
           type='text'
           id="quote"
@@ -17,11 +17,14 @@
         type='text'
         id="author"
         placeholder="the author of the quote"/>
-      <button id="addQuote">add quote</button>
+      <button>add quote</button>
   </form>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
+      const form = document.querySelector('form')
+      const baseURL = `http://localhost:4000/api`
+
       document.getElementById("complimentButton").onclick = function () {
         axios.get("http://localhost:4000/api/compliment/")
             .then(function (response) {
@@ -34,6 +37,24 @@
           alert(res.data);
         });
       }
+      const addfunction = (event) => {
+        event.preventDefault()
+        let quote = document.querySelector('#quote');
+        let author = document.querySelector('#author');
+        let bodyObj = {
+          quote: quote.value,
+          author: author.value, 
+        }
+        console.log(bodyObj);
+        axios.post(`${baseURL}/quotes`, bodyObj).then(function (res) {
+          console.log(res.data);
+        })
+
+        quote.value = "";
+        author.value = "";
+      }
+      form.addEventListener('submit', addfunction)
+
     </script>
   </body>
 </html>
