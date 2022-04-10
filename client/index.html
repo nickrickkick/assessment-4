@@ -24,7 +24,7 @@
         type='text'
         id="changeFortune"
         placeholder='text for the new fortune.'/>
-    <button>delete fortune</button>
+    <button>change fortune</button>
 </form>
 
     <form id="quoty">
@@ -45,6 +45,10 @@
     <script>
       const form = document.querySelector('#quoty')
       const baseURL = `http://localhost:4000/api`
+
+      const update = (id, text) => axios.put(`${baseURL}/fortune/${id}`, {text}).then(function (res) {
+          alert(res.data)
+        })
 
       function createQuotesSpot(quotes) {
         const quoteSpot = document.createElement('div')
@@ -76,6 +80,14 @@
         axios.delete(`http://localhost:4000/api/fortune/${fortuneIndex}`).then(function (res) {
           alert(res.data);
         })
+      })
+
+      document.querySelector("#fortuneChange").addEventListener('submit', function(event) {
+        event.preventDefault();
+        let fortuneIndex = document.getElementById('indexNum2').value;
+        let newFortune = document.getElementById('changeFortune').value;
+        update(fortuneIndex, newFortune);
+        
       })
 
       const addfunction = (event) => {

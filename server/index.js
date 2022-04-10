@@ -50,6 +50,13 @@ app.delete("/api/fortune/:id", (req, res) => {
   res.status(200).send(fortunes);            
 })
 
+app.put("/api/fortune/:id", (req, res) => {
+  let  index  = req.params.id;
+  let { text } = req.body;
+  fortunes[index] = text;
+  res.status(200).send(fortunes);
+})
+
 
 app.get('/api/quotes', getQuotes);
 app.post('/api/quotes', createQuotes);
