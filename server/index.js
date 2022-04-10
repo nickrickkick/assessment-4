@@ -8,8 +8,17 @@ app.use(cors());
 app.use(express.json()); // When we want to be able to accept JSON.
 
 const {
+  getQuotes,
   createQuotes,
 } = require('./controller')
+
+const fortunes = [
+  "A beautiful, smart, and loving person will be coming into your life.",
+  "Competence like yours is underrated.",
+  "For the things we have to learn before we can do them, we learn by doing them.",
+  "In order to take, one must first give.",
+  "Mans mind, once stretched by a new idea, never regains its original dimensions."
+];
 
 app.get("/api/compliment", (req, res) => {
   const compliments = ["Gee, you're a smart cookie!",
@@ -26,13 +35,7 @@ app.get("/api/compliment", (req, res) => {
 });
 
 app.get('/api/fortune', (req, res) => {
-  const fortunes = [
-    "A beautiful, smart, and loving person will be coming into your life.",
-    "Competence like yours is underrated.",
-    "For the things we have to learn before we can do them, we learn by doing them.",
-    "In order to take, one must first give.",
-    "Mans mind, once stretched by a new idea, never regains its original dimensions."
-];
+  
 
 let randomIndex = Math.floor(Math.random() * fortunes.length);
 let randomFortune = fortunes[randomIndex];
@@ -40,8 +43,15 @@ let randomFortune = fortunes[randomIndex];
 res.status(200).send(randomFortune);
 });
 
+app.delete("/api/fortune/:id", (req, res) => {
+  let index = req.params.id;
+  console.log(index);
+  fortunes.splice(index, 1);
+  res.status(200).send(fortunes);            
+})
 
 
+app.get('/api/quotes', getQuotes);
 app.post('/api/quotes', createQuotes);
 
 app.listen(4000, () => console.log("Server running on 4000"));
