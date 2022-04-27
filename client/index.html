@@ -39,6 +39,19 @@
         placeholder="the author of the quote"/>
       <button>add quote</button>
   </form>
+  
+<form id="changeQuote">
+      
+    <input 
+        type='text'
+        id="ticket"
+        placeholder='put in the ticket number'/>
+    <input 
+      type='text'
+      id="updateQuote"
+      placeholder="update the quote"/>
+    <button>update quote</button>
+</form>
   <div></div>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -46,7 +59,7 @@
       const form = document.querySelector('#quoty')
       const baseURL = `http://localhost:4000/api`
 
-      const update = (id, text) => axios.put(`${baseURL}/fortune/${id}`, {text}).then(function (res) {
+      const update = (place ,id, text) => axios.put(`${baseURL}/${place}/${id}`, {text}).then(function (res) {
           alert(res.data)
         })
 
@@ -86,7 +99,16 @@
         event.preventDefault();
         let fortuneIndex = document.getElementById('indexNum2').value;
         let newFortune = document.getElementById('changeFortune').value;
-        update(fortuneIndex, newFortune);
+        update("fortune",fortuneIndex, newFortune);
+        
+      })
+
+      document.querySelector("#changeQuote").addEventListener('submit', function(event) {
+        event.preventDefault();
+        let ticketNum = document.getElementById('ticket').value;
+        let newQuote = document.getElementById('updateQuote').value;
+        console.log(newQuote);
+        update("quotes", ticketNum, newQuote);
         
       })
 

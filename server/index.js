@@ -10,6 +10,7 @@ app.use(express.json()); // When we want to be able to accept JSON.
 const {
   getQuotes,
   createQuotes,
+  updateQuotes,
 } = require('./controller')
 
 const fortunes = [
@@ -56,6 +57,8 @@ app.put("/api/fortune/:id", (req, res) => {
   fortunes[index] = text;
   res.status(200).send(fortunes);
 })
+// this is the need put that will change one of the quotes text
+app.put("/api/quotes/:id", updateQuotes);
 
 
 app.get('/api/quotes', getQuotes);
